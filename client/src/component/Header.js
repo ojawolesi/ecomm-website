@@ -10,7 +10,7 @@ const Header = () => {
     setShowMenu((show) => !show);
   };
   return (
-    <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50">
+    <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-white">
       {/*header*/}
 
       <div className="flex items-center h-full justify-between">
@@ -23,7 +23,7 @@ const Header = () => {
           <nav className="flex gap-4 md:gap-6 text-base md:text-lg">
             <Link to={""}>Home</Link>
             <Link to={"menu"}>Menu</Link>
-            <Link to={"about-us"}>About Us</Link>
+            <Link to={"aboutus"}>About Us</Link>
             <Link to={"contact"}>Contact</Link>
           </nav>
           <div className="text-2xl text-slate-600 relative">
@@ -37,9 +37,16 @@ const Header = () => {
               <HiOutlineUserCircle />
             </div>
             {showMenu && (
-              <div className="absolute right-2 bg-white py-2 px-2 drop-shadow-md">
-                <p className="whitespace-nowrap cursor-pointer">New product</p>
-                <p className="whitespace-nowrap cursor-pointer">Login</p>
+              <div className="absolute right-2 bg-white py-2 px-2 drop-shadow-md flex flex-col">
+                <Link
+                  to={"newproduct"}
+                  className="whitespace-nowrap cursor-pointer"
+                >
+                  New product
+                </Link>
+                <Link to={"login"} className="whitespace-nowrap cursor-pointer">
+                  Login
+                </Link>
               </div>
             )}
           </div>

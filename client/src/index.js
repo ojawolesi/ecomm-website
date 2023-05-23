@@ -13,14 +13,20 @@ import Home from "./page/Home";
 import Menu from "./page/Menu";
 import AboutUs from "./page/AboutUs";
 import Contact from "./page/Contact";
+import Login from "./page/Login";
+import NewProduct from "./page/NewProduct";
+import SignUp from "./page/SignUp";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
       <Route path="menu" element={<Menu />} />
-      <Route path="about-us" element={<AboutUs />} />
+      <Route path="aboutus" element={<AboutUs />} />
       <Route path="contact" element={<Contact />} />
+      <Route path="login" element={<Login />} />
+      <Route path="newproduct" element={<NewProduct />} />
+      <Route path="signup" element={<SignUp />} />
     </Route>
   )
 );
