@@ -1,98 +1,184 @@
-import React from "react";
-import logo from "../assets/OA-logo [black].png";
+import React, { useState } from "react";
+import { FaRegUser, FaRegEnvelope, FaRegPaperPlane } from "react-icons/fa";
+import { BsAsterisk } from "react-icons/bs";
+import { BiShow, BiHide } from "react-icons/bi";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [data, setData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  console.log(data);
+  const preventPaste = (e) => {
+    e.preventDefault();
+  };
+  const handleShowPassword = () => {
+    setShowPassword((show) => !show);
+  };
+  const handleShowConfirmPassword = () => {
+    setShowConfirmPassword((show) => !show);
+  };
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { username, email, password, confirmPassword } = data;
+    if (username && email && password && confirmPassword) {
+      if (password === confirmPassword) {
+        alert("successfully signed up");
+        navigate("/login");
+      } else {
+        alert("Passwords do not match");
+      }
+    } else {
+      alert("Please enter missing fields");
+    }
+  };
+
   return (
     <div>
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a
-          href="#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-black"
-        >
-          <img className="w-8 h-8 mr-2" src={logo} alt="logo" />
-          Olasubomi Awolesi
-        </a>
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Sign in to your account
-            </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
-                  required=""
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
+      <div className="signup-1 flex items-center relative h-screen">
+        <div className="container px-4 mx-auto relative z-10">
+          <div className="sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-5/12 mx-auto">
+            <div className="box rounded-3xl bg-white p-6 md:px-12 md:pt-12 border-t-8 border-solid border-indigo-600 drop-shadow-md shadow-md">
+              <h2 className="text-3xl text-gray-800 text-center">
+                Create Your Account
+              </h2>
+
+              <form className="signup-form mt-6 md:mt-12">
+                <div className="border-2 border-solid rounded flex items-center mb-4">
+                  <div className="w-10 h-10 flex justify-center items-center flex-shrink-0">
+                    <FaRegUser className="text-gray-400" />
+                  </div>
+                  <div className="flex-1">
                     <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      required=""
+                      type="text"
+                      id="username"
+                      name="username"
+                      placeholder="Username"
+                      className="h-10 py-1 pr-3 w-full focus-within:outline-0"
+                      value={data.username}
+                      onChange={handleOnChange}
                     />
                   </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="remember"
-                      className="text-gray-500 dark:text-gray-300"
-                    >
-                      Remember me
-                    </label>
+                </div>
+
+                <div className="border-2 border-solid rounded flex items-center mb-4">
+                  <div className="w-10 h-10 flex justify-center items-center flex-shrink-0">
+                    <FaRegEnvelope className="text-gray-400" />
+                  </div>
+                  <div className="flex-1">
+                    <input
+                      type="text"
+                      id="email"
+                      name="email"
+                      placeholder="E-mail"
+                      className="h-10 py-1 pr-3 w-full focus-within:outline-0"
+                      value={data.email}
+                      onChange={handleOnChange}
+                    />
                   </div>
                 </div>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Forgot password?
-                </a>
+
+                <div className="border-2 border-solid rounded flex items-center mb-4">
+                  <div className="w-10 h-10 flex justify-center items-center flex-shrink-0">
+                    <BsAsterisk className="text-gray-400" />
+                  </div>
+                  <div className="flex-1 ">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      name="password"
+                      placeholder="Password"
+                      className="h-10 flex py-1 w-full focus-within:outline-0"
+                      value={data.password}
+                      onChange={handleOnChange}
+                    />
+                  </div>
+                  <span
+                    className="pr-2 text-xl flex text-gray-400 cursor-pointer"
+                    onClick={handleShowPassword}
+                    onChange={handleOnChange}
+                  >
+                    {showPassword ? <BiShow /> : <BiHide />}
+                  </span>
+                </div>
+
+                <div className="border-2 border-solid rounded flex items-center mb-4">
+                  <div className="w-10 h-10 flex justify-center items-center flex-shrink-0">
+                    <BsAsterisk className="text-gray-400" />
+                  </div>
+                  <div className="flex-1 ">
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      onPaste={preventPaste}
+                      className="h-10 flex py-1 w-full focus-within:outline-0"
+                      value={data.confirmPassword}
+                      onChange={handleOnChange}
+                    />
+                  </div>
+                  <span
+                    className="pr-2 text-xl flex text-gray-400 cursor-pointer"
+                    onClick={handleShowConfirmPassword}
+                  >
+                    {showConfirmPassword ? <BiShow /> : <BiHide />}
+                  </span>
+                </div>
+
+                <p className="text-sm text-center mt-6">
+                  By signing up, you agree to our{" "}
+                  <a href="#" className="text-indigo-600 hover:underline">
+                    Terms
+                  </a>{" "}
+                  and{" "}
+                  <a href="#" className="text-indigo-600 hover:underline">
+                    Privacy Policy
+                  </a>
+                </p>
+
+                <div className="text-center mt-6 md:mt-12">
+                  <button
+                    className="items-center inline-flex bg-indigo-600 hover:bg-indigo-700 text-white text-xl py-2 px-4 md:px-6 rounded transition-colors duration-300"
+                    onClick={handleSubmit}
+                  >
+                    Sign Up{"  "}
+                    <span className="pl-2">
+                      <FaRegPaperPlane />
+                    </span>
+                  </button>
+                </div>
+              </form>
+
+              <div className="border-t border-solid mt-6 md:mt-12 pt-4">
+                <p className="text-gray-500 text-center">
+                  Already have an account,{" "}
+                  <Link
+                    to={"/login"}
+                    className="text-indigo-600 hover:underline"
+                  >
+                    Login
+                  </Link>
+                </p>
               </div>
-              <button
-                type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                Sign in
-              </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
-                <a
-                  href="#"
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Sign up
-                </a>
-              </p>
-            </form>
+            </div>
           </div>
         </div>
       </div>
